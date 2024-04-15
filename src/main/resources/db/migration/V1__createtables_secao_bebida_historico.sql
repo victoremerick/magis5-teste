@@ -1,0 +1,25 @@
+CREATE TABLE bebida (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    tipo ENUM('ALCOOLICA', 'NAO_ALCOOLICA') NOT NULL
+);
+
+CREATE TABLE secao (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    capacidade_litros INT NOT NULL,
+    tipo_bebida ENUM('ALCOOLICA', 'NAO_ALCOOLICA') NOT NULL,
+    volume_atual INT NOT NULL
+);
+
+CREATE TABLE historico (
+   id BIGINT AUTO_INCREMENT PRIMARY KEY,
+   tipo ENUM('ENTRADA', 'SAIDA') NOT NULL,
+   volume INT NOT NULL,
+   data TIMESTAMP NOT NULL,
+   secao_id BIGINT NOT NULL,
+   bebida_id BIGINT NOT NULL,
+   responsavel VARCHAR(255) NOT NULL,
+   FOREIGN KEY (secao_id) REFERENCES secao(id),
+   FOREIGN KEY (bebida_id) REFERENCES bebida(id)
+);
